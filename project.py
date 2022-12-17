@@ -21,8 +21,22 @@ def gen_random_word(lang_type, gamemode):
                     'quartermaster']
         else:
             print('Error. Неправильная команда!')
-    # TODO - написать логику функции для русского (ru) и украинского языков (ua)
-
+    elif lang_type.lower() == 'ru':
+        if gamemode.lower() == 'легкая':
+            words = ["кот", "утка"]
+        elif gamemode.lower() == 'тяжелая':
+            words = ["строительство", "виноград"]
+        else:
+            print('Error. Неправильная команда!')
+    elif lang_type.lower() == 'ua':
+        if gamemode.lower() == 'легкая':
+            words = ["вино", "яблуко"]
+        elif gamemode.lower() == 'тяжелая':
+            words = ["рівняння", "розповсюдження"]
+        else:
+            print('Error. Неправильная команда!')
+    else:
+        print('Error. Неправильная команда!')
 
     return choice(words)
 
@@ -30,7 +44,73 @@ def gen_random_word(lang_type, gamemode):
 print(gen_random_word('en', 'легкая'))
 
 # TODO - написать функцию сравнения проверяемого слова
-def check_word(correct_word):
-    ...
+def check_word(correct_word, lang_type = 'en'):
+    def draw_head():
+        circle(20)
+    def draw_right_leg():
+        forward(40)
+    def draw_left_leg():
+        forward(40)
+    def draw_body():
+        forward(100)
+    def draw_left_hand():
+        forward(20)
+    def draw_right_hand():
+        forward(20)
+    body_parts = [draw_head,
+                  draw_body,
+                  draw_left_hand,
+                  draw_right_hand,
+                  draw_left_leg,
+                  draw_right_leg]
+    unknown_word = ''
+    eng_alphabet = 'qwertyuiopasdfghjklzxcvbnm'
+    ru_alphabet = 'йцукенгшщзфывапролдячсмитьхъё'
+    ua_alphabet = "йцукенгшщзфівапролдячсмитьбюжєхї'"
+    count = 0
+    if lang_type == 'en':
+        set_alphabet = eng_alphabet
+    elif lang_type == 'ru':
+        set_alphabet = ru_alphabet
+    elif lang_type == 'ua':
+        set_alphabet = ua_alphabet
+        
+    for symbol in correct_word:
+        unknown_word += '_' # unknown = '_____'
+    while count < 6:
+        print(unknown_word)
+        letter = input('Введите букву: ').lower()
+        if len(letter) != 1 or letter not in set_alphabet:
+            print("Введите только одну букву!")
+        else:
+            find_letter = correct_word.find(letter)
+            # Нужно поработать в этом куске кода
+            if find_letter == -1:
+                body_parts[count]
+                count += 1                
+            else:
+                unknown_word = list(unknown_word) # ['_', '_'...]
+                correct_letter = correct_word.count(letter)
+                if correct_letter == 1:
+                    unknown_word[find_letter] = correct_word[find_letter]   
+                else:
+                    letter_index = []
+                    for index in range(len(correct_word)):
+                        if letter == correct_word[index]:
+                            letter_index.append(index)
+                            
+                    for element in letter_index:
+                        unknown_word[element] = letter
+                unknown_word = ''.join(unknown_word)
+                
+        if '_' not in unknown_word:
+            return 'You Win!'
+    return 'You Lose!'
+
+result = check_word('egg')
+exitonclick()
+
+    
+    
 
             

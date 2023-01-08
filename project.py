@@ -41,22 +41,53 @@ def gen_random_word(lang_type, gamemode):
     return choice(words)
 
 
-print(gen_random_word('en', 'легкая'))
+#print(gen_random_word('en', 'легкая'))
 
 # TODO - написать функцию сравнения проверяемого слова
 def check_word(correct_word, lang_type = 'en'):
+    def draw_object():
+        penup()
+        setx(-50)
+        sety(-50)
+        pendown()
+        left(90)
+        forward(150)
+        right(90)
+        forward(70)
+        right(90)
+        forward(20)
+        left(90)
+        penup()
+        sety(-2)
+        pendown()
     def draw_head():
         circle(20)
     def draw_right_leg():
+        right(90)
         forward(40)
     def draw_left_leg():
         forward(40)
+        left(180)
+        forward(40)
     def draw_body():
+        right(90)
         forward(100)
+        left(180)
+        forward(70)
+        left(90)
     def draw_left_hand():
+        forward(20)
+        left(180)
         forward(20)
     def draw_right_hand():
         forward(20)
+        right(180)
+        forward(20)
+        left(90)
+        forward(70)
+        right(45)
+        
+    draw_object()
     body_parts = [draw_head,
                   draw_body,
                   draw_left_hand,
@@ -86,7 +117,7 @@ def check_word(correct_word, lang_type = 'en'):
             find_letter = correct_word.find(letter)
             # Нужно поработать в этом куске кода
             if find_letter == -1:
-                body_parts[count]
+                body_parts[count]()
                 count += 1                
             else:
                 unknown_word = list(unknown_word) # ['_', '_'...]
@@ -104,10 +135,16 @@ def check_word(correct_word, lang_type = 'en'):
                 unknown_word = ''.join(unknown_word)
                 
         if '_' not in unknown_word:
-            return 'You Win!'
-    return 'You Lose!'
+            print('You Win!')
+            return None
+    print('You Lose!')
+    print(f'Нужно было отгадать слово: {correct_word}')
 
-result = check_word('egg')
+gamemode = input('Выберите сложность игры (Легкая\Тяжелая): ').lower()
+lang_type = input('На каком языке? (UA/EN/RU): ').lower()
+
+win_word = gen_random_word(lang_type, gamemode)
+result = check_word(win_word, lang_type)
 exitonclick()
 
     

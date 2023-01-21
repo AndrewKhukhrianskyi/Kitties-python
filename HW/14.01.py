@@ -6,7 +6,7 @@ def generate_random_name():
     absurd_list = 'qwertyuiop[]asdfghjkl;zxcvbnm,./1234567890-='
     random_list = ["Окно", "Окошко", "Окошечко", "Окошечечко"]
     if randint(1, 2) == 1:
-        index_value = randint(0, len(absurd_list))
+        index_value = randint(0, len(absurd_list) - 1)
         return absurd_list[index_value]
     else:
         return choice(random_list)

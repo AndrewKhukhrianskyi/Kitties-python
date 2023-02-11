@@ -1,7 +1,6 @@
 # Task 1 - Умный блокнот
 from tkinter import *
 from random import choice
-from time import sleep
 
 def save_data():
     text_data = text.get(0.0, END)

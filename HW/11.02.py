@@ -1,6 +1,7 @@
 from tkinter import *
 from random import randint
 import tkinter.messagebox as mb
+
 '''
 # Task 1 - Калькулятор за 300
 def divide():
@@ -99,3 +100,4 @@ button = Button(width = 8,
 
 button.pack(anchor='n')
 root.mainloop()
+

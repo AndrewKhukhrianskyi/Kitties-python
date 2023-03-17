@@ -83,6 +83,3 @@ root.mainloop()
 2. Написать приложение, которое будет сохранять введенные данные в текстовом файле
 3. Почитать о создании файлов: https://istories.media/workshops/2021/01/29/vvedenie-v-python-chast-11-rabota-s-failami/
 """
-
-
-"""

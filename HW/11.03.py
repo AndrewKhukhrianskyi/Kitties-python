@@ -15,7 +15,7 @@ def computer_to_phone(numbers):
     }
     return "".join([pad[number] for number in numbers])
 
-#print(computer_to_phone('0123456789'))
+print(computer_to_phone('0123456789'))
 
 # Task 2 - BlackJack
 from tkinter import *

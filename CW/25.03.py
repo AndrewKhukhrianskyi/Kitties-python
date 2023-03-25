@@ -40,3 +40,16 @@ print(['#' + word for word in results])
 emails_with_words = []
 emails_words_number = []
 emails_with_symbols = []
+
+"""
+HW
+1. О регулярных выражениях: https://en.wikipedia.org/wiki/Regular_expression
+2. Доделать задачу. Написать программу, которая в тексте ищет электронные почты
+и распределяет на следующие категории:
+    - Почты со словами
+    - Почты со словами и цифрами
+    - Почты со словами + цифрами + спец символами
+3. Решить задачу: https://www.codewars.com/kata/5838a66eaed8c259df000003
+"""
+
+

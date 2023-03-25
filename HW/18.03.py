@@ -16,8 +16,10 @@ def crypt_decrypt():
         new_text = text_string.strip().split(',')
         decrypt_dict = dict(zip(ALPHABETS.values(), ALPHABETS.keys()))
         for number in new_text:
-            decrypt_text += decrypt_dict[int(number)]
-        print(decrypt_text)
+            try:
+                decrypt_text += decrypt_dict[int(number)]
+            except:
+                print(decrypt_text)
 
 
 window = Tk()

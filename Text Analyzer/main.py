@@ -25,15 +25,65 @@ def clear_data():
 
 def find_elements():
     regex = regex_text_field.get(0.0, END).strip()
-    text = text_field.get(0.0, END).strip()
+    if len(regex) == 0:
+        mb.showerror(title="Ошибка!",
+                     message="Регулярное выражение не может быть пустым!")
+    else:
+        text = text_field.get(0.0, END).strip()
 
 
-    result = re.findall(rf'{regex}', text)
-    result_text_field.insert(0.0, str(result))
+        result = re.findall(rf'{regex}', text)
+        result_text_field.insert(0.0, str(result))
 
-    mb.showinfo(title='Результат',
-                message = 'Данные найдены!')
+        mb.showinfo(title='Результат',
+                    message = 'Данные найдены!')
 
+def analyze_text(language_status='en'):
+    text = text_field.get(0.0, END).strip().lower()
+    result = []
+    result_text = ''
+    if language_status == 'en':
+        vowels = 'aeouiy'
+        consonants = 'qwrtpsdfghjklzxcvbnm'
+    # Работа с гласными буквами будет тут
+        vowels_count = 0
+        for vowel in vowels:
+            vowels_count += text.count(vowel)
+        result.append(vowels_count)
+    # Работа с согласными буквами будет тут
+        consonants_count = 0
+        for consonant in consonants:
+            consonants_count += text.count(consonant)
+        result.append(consonants_count)
+    # Подсчет всех символов будет тут
+        result.append(len(text))
+    # Часто встречаемая буква будет тут
+    letters_dictionary = {}
+    for letter in LANGUAGE_EN:
+        # словарь[ключ] = значение
+        letters_dictionary[letter] = text.count(letter)
+        # {буква: сколько раз повторяется}
+    maximum_value = max(letters_dictionary.values())
+    # Редко встречаемая буква будет тут
+    minimum_values = list(letters_dictionary.values())
+    minimum_values.sort()
+    for minimum_value in minimum_values:
+        if minimum_value != 0:
+            break
+    letters_dictionary = dict(zip(letters_dictionary.values(), letters_dictionary.keys()))
+    result.append(f'{letters_dictionary[maximum_value]}({maximum_value})')
+    result.append(f'{letters_dictionary[minimum_value]}({minimum_value})')
+        
+    for field in range(len(ANALYZE_TEXT_LIST)): # range(0,8)
+        try:
+            result_text += f'{ANALYZE_TEXT_LIST[field]} {result[field]}\n'
+        except IndexError:
+            result_text += f'{ANALYZE_TEXT_LIST[field]} No results!\n'
+    
+    
+    result_text_field.insert(0.0, result_text)
+            
+        
     
 # UI
 window = Tk()
@@ -69,10 +119,14 @@ find_button = Button(width = BUTTON_WIDTH,
                       height = BUTTON_HEIGHT,
                       text = 'Find!',
                       command = find_elements)
+statistics_button = Button(width = BUTTON_WIDTH,
+                           height = BUTTON_HEIGHT,
+                           text = 'Statistic!',
+                           command = analyze_text)
 widgets = [regex_label, regex_text_field,
            text_label, text_field, result_label,
            result_text_field, clear_button,
-           find_button]
+           find_button, statistics_button]
 
 for widget in widgets:
     widget.pack(anchor='n')
